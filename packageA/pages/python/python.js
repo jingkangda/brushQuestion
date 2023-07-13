@@ -7,13 +7,13 @@ const fs = wx.getFileSystemManager()
 const app = getApp()
 var error_s;
 var success2;
-var data_c = new Array();//缓存的数据
-var pro_suc = new Array();//正确的题目号
-var pro_wro = new Array();//错误的题目号
-var suct;//成功次数
-var wro;//失败次数
+var data_c = new Array(); //缓存的数据
+var pro_suc = new Array(); //正确的题目号
+var pro_wro = new Array(); //错误的题目号
+var suct; //成功次数
+var wro; //失败次数
 
-function remove(k){
+function remove(k) {
   wx.removeStorage({
     key: k,
     success: function (res) {
@@ -46,19 +46,19 @@ Page({
       active: 0
     },
     layerlayer: {
-      isLayerShow: false,//默认弹窗
-      layerAnimation: {},//弹窗动画
+      isLayerShow: false, //默认弹窗
+      layerAnimation: {}, //弹窗动画
     },
     isLocal: true,
     answers: {
-      start: 0,//初始题号
-      end: 0,//结束题号
-      allList: [],//题号数据
-      activeNum: 0,//当前显示条数
-      onceLoadLength: 5,//一次向俩端加载条数，因我使用本地数据，此属性未实际使用
-      isShowTip: false//默认是否显示提示
+      start: 0, //初始题号
+      end: 0, //结束题号
+      allList: [], //题号数据
+      activeNum: 0, //当前显示条数
+      onceLoadLength: 5, //一次向俩端加载条数，因我使用本地数据，此属性未实际使用
+      isShowTip: false //默认是否显示提示
     },
-    showModalStatus: false 
+    showModalStatus: false
   },
 
   //单选逻辑
@@ -80,16 +80,11 @@ Page({
   //多选逻辑
   tapCheckbox: function (e) {
     let thisOption = e.currentTarget.dataset.option
-    let list = this.data.answers.allList[thisOption[2]].options.map(function (option, i) 
-    {
-      if(thisOption[1] == i)
-      {
-        if(option.class != 'active')
-        {
-            option.Select = true
-        }
-        else
-        {
+    let list = this.data.answers.allList[thisOption[2]].options.map(function (option, i) {
+      if (thisOption[1] == i) {
+        if (option.class != 'active') {
+          option.Select = true
+        } else {
           option.Select = false
         }
       }
@@ -97,11 +92,11 @@ Page({
     })
     this.data.answers.allList[this.data.swiper.active].options = list
   },
-  
+
   //单选答案判断逻辑
   tapSelect: function (e) {
     var success1;
-    if (!this.data.isFirst || this.data.answers.allList[this.data.answers.start + this.data.swiper.active].isAnswer)     {
+    if (!this.data.isFirst || this.data.answers.allList[this.data.answers.start + this.data.swiper.active].isAnswer) {
       return false
     }
     this.data.isFirst = false
@@ -126,34 +121,34 @@ Page({
     //判断数组中是否包含该题目
     var result_suc = contains(pro_suc, problem.id);
     var result_wro = contains(pro_wro, problem.id);
-    if (bool) {//答对了
-      suct = suct+1
+    if (bool) { //答对了
+      suct = suct + 1
       problem.isAnswer = 1
       this.data.answers.success++
-      if(result_suc==-1)
+      if (result_suc == -1)
         pro_suc.push(problem.id)
-      if(result_wro>-1)
+      if (result_wro > -1)
         pro_wro.splice(result_wro, 1);
       console.log(problem.id + bool)
-    } else {//失败了
-      wro = wro+1
+    } else { //失败了
+      wro = wro + 1
       problem.isAnswer = 2
       this.data.answers.error++
-      if (result_suc>-1)
+      if (result_suc > -1)
         pro_suc.splice(result_suc, 1)
       if (result_wro == -1)
         pro_wro.push(problem.id);
       console.log(problem.id + bool)
-      error_s = this.data.answers.error*5
+      error_s = this.data.answers.error * 5
     }
     //将错误的题目和正确的题目加入缓存
     wx.setStorageSync("success", pro_suc)
     wx.setStorageSync("wrong", pro_wro)
     wx.setStorageSync("suc", suct)
     wx.setStorageSync("wro", wro)
-/*
-    suct = wx.getStorageSync("suc")
-    console.log(suct)*/
+    /*
+        suct = wx.getStorageSync("suc")
+        console.log(suct)*/
 
     problem.options = data
     this.data.answers.isShowTip = !bool
@@ -164,7 +159,7 @@ Page({
       var suc = this.onSwiper('left');
       if (!bool) {
         wx.showModal({
-          showCancel: false,//是否显示取消按钮
+          showCancel: false, //是否显示取消按钮
           title: '错误答案',
           content: '正确答案为' + correct,
           success: function (res) {
@@ -180,7 +175,7 @@ Page({
       var num = this.data.answers.success;
       if (num > 11) {
         wx.showModal({
-          showCancel: false,//是否显示取消按钮
+          showCancel: false, //是否显示取消按钮
           title: '这是最后一题了',
           content: '恭喜你通过了测验！\n你答对了' + num + '道题',
           success: function (res) {
@@ -197,7 +192,7 @@ Page({
         else text = '正确答案为' + correct
         wx.showModal({
           title: '这是最后一题了',
-          showCancel: false,//是否显示取消按钮
+          showCancel: false, //是否显示取消按钮
           content: text,
           success: function (res) {
             if (res.confirm) {
@@ -211,7 +206,7 @@ Page({
       }
     }
   },
-  
+
   //多选答案判断逻辑
   tapConfirm: function (e) {
     if (!this.data.isFirst || this.data.answers.allList[this.data.answers.start + this.data.swiper.active].isAnswer) {
@@ -231,15 +226,15 @@ Page({
       bool = false
     }
     var problem = this.data.answers.allList[this.data.answers.start + this.data.swiper.active]
-    
+
     //判断数组中是否包含该题目
-    var result_suc = contains(pro_suc, problem.id+10000);
-    var result_wro = contains(pro_wro, problem.id+10000);
+    var result_suc = contains(pro_suc, problem.id + 10000);
+    var result_wro = contains(pro_wro, problem.id + 10000);
 
     if (bool) {
       problem.isAnswer = 1
       if (result_suc == -1)
-        pro_suc.push(problem.id+10000)
+        pro_suc.push(problem.id + 10000)
       if (result_wro > -1)
         pro_wro.splice(result_wro, 1);
       this.data.answers.success++
@@ -248,7 +243,7 @@ Page({
       if (result_suc > -1)
         pro_suc.splice(result_suc, 1)
       if (result_wro == -1)
-        pro_wro.push(problem.id+10000);
+        pro_wro.push(problem.id + 10000);
       this.data.answers.error++
     }
     //将错误的题目和正确的题目加入缓存
@@ -259,13 +254,13 @@ Page({
     problem.options = data
     this.data.answers.isShowTip = !bool
     this.setData(this.data)
-    var points = success2-5*(10 - error_s / 5) 
+    var points = success2 - 5 * (10 - error_s / 5)
     var num = this.data.answers.success;
     //延迟加载滑动
     if (this.data.answers.activeNum + 1 < this.data.answers.allList.length) {
-      if(!bool){
+      if (!bool) {
         wx.showModal({
-          showCancel: false,//是否显示取消按钮
+          showCancel: false, //是否显示取消按钮
           title: '错误答案',
           content: '正确答案为' + correct,
           success: function (res) {
@@ -280,26 +275,26 @@ Page({
       // 结束了
       //console.log(collectionData.data.pro);
       //wx.setStorageSync(, )
-      if ( num > 11 ){
-      wx.showModal({
-        showCancel: false,//是否显示取消按钮
-        title: '这是最后一题了',
-        content: '恭喜你通过了测验！\n你答对了' + num + '道题',
-        success: function (res) {
-          if (res.confirm) {
-            wx.redirectTo({
-              url: '../../../pages/index/index'
-            })
+      if (num > 11) {
+        wx.showModal({
+          showCancel: false, //是否显示取消按钮
+          title: '这是最后一题了',
+          content: '恭喜你通过了测验！\n你答对了' + num + '道题',
+          success: function (res) {
+            if (res.confirm) {
+              wx.redirectTo({
+                url: '../../../pages/index/index'
+              })
+            }
           }
-        }
-      })
-      }else{
+        })
+      } else {
         var text;
         if (bool) text = "按确定返回主页"
         else text = '正确答案为' + correct
         wx.showModal({
           title: '这是最后一题了',
-          showCancel: false,//是否显示取消按钮
+          showCancel: false, //是否显示取消按钮
           content: text,
           success: function (res) {
             if (res.confirm) {
@@ -348,9 +343,9 @@ Page({
   //收藏逻辑
   collectList: function () {
     //console.log(collectionData)
-    
+
     let index = this.data.answers.activeNum
-    if (this.data.answers.allList[index].isStore=="false")
+    if (this.data.answers.allList[index].isStore == "false")
       this.data.answers.allList[index].isStore = false
     console.log(this.data.answers.allList[index].isStore)
     this.data.answers.allList[index].isStore = !this.data.answers.allList[index].isStore
@@ -392,7 +387,7 @@ Page({
     this.layerFooterClick()
     this.getSubject()
   },
-  
+
   //swiper切换
   setEvent: function (e) {
     this.data.swiper.touchstartEvent = e
@@ -426,7 +421,7 @@ Page({
       timingFunction: 'ease',
       delay: 0
     })
-    if (!this.$isLock) {//锁屏控制
+    if (!this.$isLock) { //锁屏控制
       this.$isLock = true
       if (dire == 'bottom' || dire == 'top' || !dire) {
         this.$isLock = false
@@ -436,7 +431,7 @@ Page({
         animationPre.translate3d('0', 0, 0).step()
         animationT.translate3d('100%', 0, 0).step()
         if (this.data.answers.activeNum > this.data.answers.start) {
-          active = - 1
+          active = -1
         } else {
           this.$isLock = false
           return
@@ -526,7 +521,7 @@ Page({
   },
   getSubject: function () {
     this.data.answers.end = this.data.answers.allList.length
-   // console.log()
+    // console.log()
     //注册滑动结束回调
     if (this.$isLock) {
       this.isLockCall = function () {
@@ -564,7 +559,7 @@ Page({
         data: data_c,
       })
     }
-    if(pro_suc==""){
+    if (pro_suc == "") {
       pro_suc = []
       wx.setStorage({
         key: 'success',
@@ -592,7 +587,7 @@ Page({
         data: wro,
       })
     }
- 
+
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -600,10 +595,10 @@ Page({
       })
     }
     console.log(data_c)
-    for (var i = 0; i < questionData.data.length; i++){
-      if (contains(data_c,questionData.data[i].id)==-1){
+    for (var i = 0; i < questionData.data.length; i++) {
+      if (contains(data_c, questionData.data[i].id) == -1) {
         questionData.data[i].isStore = false
-      }else{
+      } else {
         questionData.data[i].isStore = true
       }
     }
@@ -622,7 +617,7 @@ Page({
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-   
+
   },
 
   /**
@@ -635,14 +630,14 @@ Page({
     that.setData({
       'background': 'data:image/png;base64,' + base64
     });
-    
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-     
+
   },
 
   /**

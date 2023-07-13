@@ -2,5 +2,4 @@
 <import src="../common/python-list.wxml" />
 <loading hidden="{{!isLoading}}">加载中...</loading>
 
-    <template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper,background}}" />
-   
+<template wx:if="{{!isLoading}}" is="question-list" data="{{answers,layerlayer,swiper,background}}" />
