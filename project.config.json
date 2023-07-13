@@ -14,11 +14,12 @@
       "ignore": [],
       "disablePlugins": [],
       "outputPath": ""
-    }
+    },
+    "condition": false
   },
   "compileType": "miniprogram",
   "libVersion": "2.27.3",
-  "appid": "touristappid",
+  "appid": "wx12592cbea22305d8",
   "projectname": "%E6%AF%9B%E6%A6%82%E7%AD%94%E9%A2%98",
   "condition": {},
   "editorSetting": {

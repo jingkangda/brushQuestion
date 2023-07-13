@@ -13,12 +13,20 @@
     </view>
     <view class="usermotto">
       <text class="masked" style="text_align: center">{{motto}}</text>
+      <!-- <picker class="picker picker-text" bindchange="menuChange" value="{{num}}" range="{{menuOptions}}" range-key="value">
+      <view class="menu-item">
+        {{menuOptions[num].text}}
+      </view>
+    </picker> -->
+    <view class="picker-container">
+      <view class="picker-glass"></view>
 
-      <navigator data-num="1" class="navigator {{_num==1?'none':''}} {{_num==2?'none':''}} {{_num==3?'none':''}} {{_num==4?'none':''}} {{_num==5?'block':''}}" bindtap="menuClick1" url="../../packageA/pages/python/python" hover-class="navigator-hover">{{enter}}</navigator>
-      <navigator data-num="2" class="navigator none {{_num==1?'block':''}} {{_num==2?'none':''}} {{_num==3?'none':''}} {{_num==4?'none':''}} {{_num==5?'none':''}}" bindtap="menuClick2" url="../../packageA/pages/python2/python" hover-class="navigator-hover">{{enter}}</navigator>
-      <navigator data-num="3" class="navigator none  {{_num==1?'none':''}} {{_num==2?'block':''}} {{_num==3?'none':''}} {{_num==4?'none':''}} {{_num==5?'none':''}}" bindtap="menuClick3" url="../../packageA/pages/python3/python" hover-class="navigator-hover">{{enter}}</navigator>
-      <navigator data-num="4" class="navigator none  {{_num==1?'none':''}} {{_num==2?'none':''}} {{_num==3?'block':''}} {{_num==4?'none':''}} {{_num==5?'none':''}}" bindtap="menuClick4" url="../../packageA/pages/python4/python" hover-class="navigator-hover">{{enter}}</navigator>
-      <navigator data-num="5" class="navigator none  {{_num==1?'none':''}} {{_num==2?'none':''}} {{_num==3?'none':''}} {{_num==4?'block':''}} {{_num==5?'none':''}}" bindtap="menuClick5" url="../../packageA/pages/python5/python" hover-class="navigator-hover">{{enter}}</navigator>
+  <picker class="picker" bindchange="menuChange" value="{{num}}" range="{{menuOptions}}" range-key="value">
+    <view class="picker-text">题库{{menuOptions[num].value}}</view>
+  </picker>
+</view>
+
+    <navigator style="color: #CDB03B; padding: 40rpx"  data-num="{{num}}" bindtap="{{menuClickFunctions[num]}}" url="{{problems[num]}}" hover-class="navigator-hover">{{enter}}</navigator>
 
       <navigator style="color: #CDB03B;" url="../../packageA/pages/prc_all/prc_all" hover-class="navigator-hover">题库刷题</navigator>
 
