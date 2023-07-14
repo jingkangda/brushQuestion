@@ -13,20 +13,15 @@
     </view>
     <view class="usermotto">
       <text class="masked" style="text_align: center">{{motto}}</text>
-      <!-- <picker class="picker picker-text" bindchange="menuChange" value="{{num}}" range="{{menuOptions}}" range-key="value">
-      <view class="menu-item">
-        {{menuOptions[num].text}}
+      <view class="picker-container">
+        <view class="picker-glass"></view>
+
+        <picker class="picker" bindchange="menuChange" value="{{num}}" range="{{menuOptions}}" range-key="value">
+          <view class="picker-text">题库{{menuOptions[num].value}}</view>
+        </picker>
       </view>
-    </picker> -->
-    <view class="picker-container">
-      <view class="picker-glass"></view>
 
-  <picker class="picker" bindchange="menuChange" value="{{num}}" range="{{menuOptions}}" range-key="value">
-    <view class="picker-text">题库{{menuOptions[num].value}}</view>
-  </picker>
-</view>
-
-    <navigator style="color: #CDB03B; padding: 40rpx"  data-num="{{num}}" bindtap="{{menuClickFunctions[num]}}" url="{{problems[num]}}" hover-class="navigator-hover">{{enter}}</navigator>
+      <navigator style="color: #CDB03B; padding: 40rpx" data-num="{{num}}" bindtap="{{menuClickFunctions[num]}}" url="{{problems[num]}}" hover-class="navigator-hover">{{enter}}</navigator>
 
       <navigator style="color: #CDB03B;" url="../../packageA/pages/prc_all/prc_all" hover-class="navigator-hover">题库刷题</navigator>
 

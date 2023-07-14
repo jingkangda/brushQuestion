@@ -37,7 +37,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    background: '/pages/image/pro.png',
+    background: '/pages/image/new_pro.webp',
     userInfo: {},
     hasUserInfo: false,
     isLoading: false,

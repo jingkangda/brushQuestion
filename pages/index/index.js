@@ -6,7 +6,7 @@ const app = getApp()
 Page({
 
   data: {
-    background: '/pages/image/index.png',
+    background: '/pages/image/new_index.jpg',
     motto: '欢迎来到刷题小程序',
     enter: '开始答题',
     userInfo: {},
