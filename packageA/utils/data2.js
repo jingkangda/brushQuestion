@@ -9626,7 +9626,7 @@ for (var i = 0; i < 15; i++) {
     }
   }
 }
-/*
+
 // 多选
 for (var i = 0; i < 5; i++) {
   var index = buildItem(multiOptions);
@@ -9641,7 +9641,7 @@ for (var i = 0; i < 5; i++) {
       }
     }
   }
-}*/
+}
 
 module.exports = {
   data: question,

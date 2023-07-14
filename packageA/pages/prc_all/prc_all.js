@@ -103,7 +103,7 @@ Page({
     this.data.isFirst = false
     let bool = true
     let correct = this.data.answers.allList[this.data.swiper.active]['a']
-    let detail = this.data.answers.allList[this.data.swiper.active]['d']
+    let detail = this.data.answers.allList[this.data.swiper.active]['d']??null
 
     let data = this.data.answers.allList[this.data.swiper.active].options.map((option, i) => {
       if (option.Select && option.label != correct) {
@@ -164,7 +164,7 @@ Page({
         wx.showModal({
           showCancel: false,//是否显示取消按钮
           title: '错误答案',
-          content: '正确答案为' + correct+'\n'+'解析为:'+detail,
+          content: '正确答案为' + correct+'\n'+ detail?('解析为:'+detail):"",
           success: function (res) {
             if (res.confirm) {
               console.log('错误答案')
