@@ -4,6 +4,7 @@ const question_all = [
     "id": 1,
     "type": "单选",
     "a": "C",
+    "d":"AAAAAAAAAAAAAAAAAAAAAAAAAA",
     "q": "1949年9月21日，毛泽东在中国人民政治协商会议第一届全体会议上发表的开幕词是()。",
     "isStore": "false",
     "isAnswer": 0,

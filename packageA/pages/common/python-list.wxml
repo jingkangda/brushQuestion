@@ -69,7 +69,6 @@
       </view>
     </block>
   </view>
-
   <view hidden="{{!layerlayer.isLayerShow}}" class="footer-layer" bindtap="layerFooterClick"></view>
   <view class="footer" animation="{{layerlayer.layerAnimation}}">
     <view class="count">

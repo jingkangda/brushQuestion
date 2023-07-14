@@ -7,11 +7,27 @@ Page({
 
   data: {
     background: '/pages/image/index.png',
-    motto: '欢迎来到毛概答题',
+    motto: '欢迎来到刷题小程序',
     enter: '开始答题',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    num: 0,
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    menuClickFunctions: ['menuClick1', 'menuClick2', 'menuClick3', 'menuClick4', 'menuClick5'],
+    menuOptions: [
+      { value: 5, text: '题库5' },
+      { value: 1, text: '题库1' },
+      { value: 2, text: '题库2' },
+      { value: 3, text: '题库3' },
+      { value: 4, text: '题库4' }
+    ],
+    problems: [
+      "../../packageA/pages/python/python",
+      "../../packageA/pages/python2/python",
+      "../../packageA/pages/python3/python",
+      "../../packageA/pages/python4/python",
+      "../../packageA/pages/python5/python"
+    ]
   },
   //事件处理函数
   bindViewTap: function () {
@@ -113,7 +129,14 @@ Page({
   },
     onShareAppMessage: function () {
 
+  },
+  menuChange: function(e) {
+    this.setData({
+      num: e.detail.value,
+      _num: e.target.value
+    });
   }
+  
 })
 
 

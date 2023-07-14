@@ -279,6 +279,7 @@ Page({
       duration: 500,
       timingFunction: 'ease',
       delay: 0
+      
     })
     layerAnimation.translate3d(0, '100%', 0).step()
     this.data.layerlayer.isLayerShow = false

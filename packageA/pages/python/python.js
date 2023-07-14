@@ -56,7 +56,7 @@ Page({
       allList: [], //题号数据
       activeNum: 0, //当前显示条数
       onceLoadLength: 5, //一次向俩端加载条数，因我使用本地数据，此属性未实际使用
-      isShowTip: false //默认是否显示提示
+      isShowTip: true //默认是否显示提示
     },
     showModalStatus: false
   },
@@ -102,6 +102,7 @@ Page({
     this.data.isFirst = false
     let bool = true
     let correct = this.data.answers.allList[this.data.swiper.active]['a']
+    let detail = this.data.answers.allList[this.data.swiper.active]['d']
     let data = this.data.answers.allList[this.data.swiper.active].options.map((option, i) => {
       if (option.Select && option.label != correct) {
         option.class = 'error'
@@ -118,6 +119,7 @@ Page({
     })
 
     var problem = this.data.answers.allList[this.data.answers.start + this.data.swiper.active]
+
     //判断数组中是否包含该题目
     var result_suc = contains(pro_suc, problem.id);
     var result_wro = contains(pro_wro, problem.id);
@@ -139,6 +141,9 @@ Page({
       if (result_wro == -1)
         pro_wro.push(problem.id);
       console.log(problem.id + bool)
+      console.log(detail);
+
+      
       error_s = this.data.answers.error * 5
     }
     //将错误的题目和正确的题目加入缓存
@@ -161,7 +166,7 @@ Page({
         wx.showModal({
           showCancel: false, //是否显示取消按钮
           title: '错误答案',
-          content: '正确答案为' + correct,
+          content: '正确答案为' + correct+'\n'+'解析为:'+detail,
           success: function (res) {
             if (res.confirm) {
               console.log('错误答案')
@@ -215,6 +220,7 @@ Page({
     this.data.isFirst = false
     let bool = true
     let correct = this.data.answers.allList[this.data.swiper.active]['a']
+    let detail = this.data.answers.allList[this.data.swiper.active]['d']
     let ans = ""
     let data = this.data.answers.allList[this.data.swiper.active].options.map((option, i) => {
       if (option.Select) {
@@ -262,7 +268,7 @@ Page({
         wx.showModal({
           showCancel: false, //是否显示取消按钮
           title: '错误答案',
-          content: '正确答案为' + correct,
+          content: '正确答案为' + correct+'\n'+'解析为:'+detail,
           success: function (res) {
             if (res.confirm) {
               console.log('错误答案')
