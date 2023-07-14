@@ -1,0 +1,14 @@
+<view class="notelist">
+  <block wx:for="{{imagePaths}}" wx:key="{{index}}">
+    <view class="note-list">
+      <view class="note-list-info" index="{{index}}">
+        <image class="note-list-photo" bindtap='clickImg' src="{{item}}" id="{{index}}" />
+      </view>
+    </view>
+  </block>
+  <!-- <block wx:for="" wx:key="{{index}}">
+    <image src="" mode="aspectFill"></image>
+  </block> -->
+  <navigator url="../photo/photo" hover-class="navigator-hover">
+  <button style="position: fixed;bottom: 0;left: 0;width: 100vw; height: 90rpx;" >拍照导入</button></navigator>
+</view>
