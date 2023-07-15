@@ -29,7 +29,8 @@
 
       <navigator style="color: #CDB03B;" url="../../packageA/pages/collection/collection" hover-class="navigator-hover">收藏夹</navigator>
 
-
+      <navigator style="color: #CDB03B; padding: 40rpx" url="../../packageA/pages/list/list" hover-class="navigator-hover">我的笔记</navigator>
+      <!--  -->
     </view>
   </view>
 </view>

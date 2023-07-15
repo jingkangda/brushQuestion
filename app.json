@@ -1,11 +1,12 @@
 {
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/photo"
   ],
-  "subpackages":[
+  "subpackages": [
     {
       "root": "packageA",
-      "pages":[
+      "pages": [
         "pages/logs/logs",
         "pages/python/python",
         "pages/python2/python",
@@ -14,12 +15,14 @@
         "pages/python5/python",
         "pages/collection/collection",
         "pages/wrong_set/wrong_set",
-        "pages/prc_all/prc_all"
+        "pages/prc_all/prc_all",
+        "pages/photo/photo",
+        "pages/list/list"
       ]
     },
     {
       "root": "packageB",
-      "pages":[
+      "pages": [
         "pages/echarts/echarts"
       ]
     }
@@ -31,5 +34,10 @@
     "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light"
   },
-  "debug": false
+  "debug": false,
+  "permission": {
+    "scope.writePhotosAlbum": {
+      "desc": "用于在相册中保存图片"
+    }
+  }
 }

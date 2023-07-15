@@ -1,49 +1,23 @@
-
-//index.js
-//获取应用实例
+// packageA/pages/photo/photo.js
 const app = getApp()
 
 Page({
 
+  /**
+   * 页面的初始数据
+   */
   data: {
-    background: '/pages/image/new_index.jpg',
-    motto: '欢迎来到刷题小程序',
-    enter: '开始答题',
-    userInfo: {},
-    hasUserInfo: false,
-    num: 0,
     isAuth: false,
     src: '',
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    menuClickFunctions: ['menuClick1', 'menuClick2', 'menuClick3', 'menuClick4', 'menuClick5'],
-    menuOptions: [
-      { value: 5, text: '题库5' },
-      { value: 1, text: '题库1' },
-      { value: 2, text: '题库2' },
-      { value: 3, text: '题库3' },
-      { value: 4, text: '题库4' }
-    ],
-    problems: [
-      "../../packageA/pages/python/python",
-      "../../packageA/pages/python2/python",
-      "../../packageA/pages/python3/python",
-      "../../packageA/pages/python4/python",
-      "../../packageA/pages/python5/python"
-    ]
   },
-  //事件处理函数
-  bindViewTap: function () {
-    wx.navigateTo({
-      url: '../../packageB/pages/echarts/echarts'
-    })
-  },
-  onLoad: function () {
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad(options) {
     var that = this;
     //console.log(that);
-    let base64 = wx.getFileSystemManager().readFileSync   (this.data.background, 'base64');
-    that.setData({
-      'background': 'data:image/png;base64,' + base64
-    });
     if (app.globalData.userInfo) {
       this.setData({
         userInfo: app.globalData.userInfo,
@@ -66,7 +40,7 @@ Page({
           this.setData({
             userInfo: res.userInfo,
             hasUserInfo: true,
-            
+
           })
         }
       })
@@ -103,8 +77,8 @@ Page({
     })
 
   },
-   // 打开授权设置界面
-   openSetting() {
+  // 打开授权设置界面
+  openSetting() {
     const that = this
     let promise = new Promise((resolve, reject) => {
       wx.showModal({
@@ -144,13 +118,55 @@ Page({
         this.setData({
           src: res.tempImagePath
         })
+        console.log(this.data.src);
         wx.previewImage({
           current: res.tempImagePath, // 当前显示图片的http链接
           urls: [res.tempImagePath] // 需要预览的图片http链接列表
         })
-      }
+        // 通过获取文件系统管理器实例
+        const fileManager = wx.getFileSystemManager();
+
+        // 指定存储目录
+        const saveDir = `${wx.env.USER_DATA_PATH}/my-directory`;
+
+        // 创建目录
+        fileManager.mkdir({
+          dirPath: saveDir,
+          recursive: true,
+          success: function (res) {
+            console.log('目录创建成功');
+
+            // 将图片保存到指定目录
+            
+          },
+          fail: function (res) {
+            console.log('目录创建失败：', res.errMsg);
+          }
+        });
+
+        fileManager.saveFile({
+          tempFilePath: res.tempImagePath,
+          filePath: `${saveDir}/${res.tempImagePath.slice(30)}`,
+          success: function (res) {
+            var savedFilePath = res.savedFilePath;
+            console.log('图片保存成功，路径为：', savedFilePath);
+            // 这里可以将保存的图片路径保存到本地，或进行其他操作
+          },
+          fail: function (res) {
+            console.log('图片保存失败：', res.errMsg);
+          }
+        });
+      },
+      fail: (err) => {
+        console.log(err);
+      },
     })
+
   },
+
+
+
+
   getUserInfo: function (e) {
     //console.log(e)
     app.globalData.userInfo = e.detail.userInfo
@@ -160,65 +176,53 @@ Page({
     })
   },
 
-  onPullDownRefresh: function () {
-    var i = 0;
-    wx.showNavigationBarLoading() //在标题栏中显示加载
-    //模拟加载
-    setTimeout(function () {
-      // complete
 
-      wx.navigateTo({
-        url: '/pages/python/python',
-        success: function (res) {
-        },
-        fail: function (res) { },
-        complete: function (res) { },
-      })
-      wx.hideNavigationBarLoading() //完成停止加载
-      wx.stopPullDownRefresh() //停止下拉刷新
-    }, 1500);
-  },
-  menuClick1: function (e) {
-    console.log(e)
-    this.setData({
-      _num: e.target.dataset.num
-    })
-  },
-
-  menuClick2: function (e) {
-
-    this.setData({
-      _num: e.target.dataset.num
-    })
-  },
-  menuClick3: function (e) {
-
-    this.setData({
-      _num: e.target.dataset.num
-    })
-  },
-  menuClick4: function (e) {
-
-    this.setData({
-      _num: e.target.dataset.num
-    })
-  },
-  menuClick5: function (e) {
-
-    this.setData({
-      _num: e.target.dataset.num
-    })
-  },
-    onShareAppMessage: function () {
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady() {
 
   },
-  menuChange: function(e) {
-    this.setData({
-      num: e.detail.value,
-      _num: e.target.value
-    });
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面隐藏
+   */
+  onHide() {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面卸载
+   */
+  onUnload() {
+
+  },
+
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh() {
+
+  },
+
+  /**
+   * 页面上拉触底事件的处理函数
+   */
+  onReachBottom() {
+
+  },
+
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage() {
+
   }
-  
 })
-
-

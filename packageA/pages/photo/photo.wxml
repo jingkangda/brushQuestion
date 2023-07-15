@@ -1,0 +1,9 @@
+<!--packageA/pages/photo/photo.wxml-->
+<!-- //拍照导入 -->
+<view class="main">
+<view class='camera'>
+  <image  mode="widthFix">1234</image>
+  <camera wx:if="{{isAuth}}" device-position="back" flash="off" binderror="error"></camera>
+</view>
+<button class="takePhoto" type="primary" bindtap="takePhoto">拍照</button>
+</view>
