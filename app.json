@@ -17,7 +17,8 @@
         "pages/wrong_set/wrong_set",
         "pages/prc_all/prc_all",
         "pages/photo/photo",
-        "pages/list/list"
+        "pages/list/list",
+        "pages/result/result"
       ]
     },
     {

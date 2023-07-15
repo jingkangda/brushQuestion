@@ -173,38 +173,12 @@ Page({
       setTimeout(() => this.onSwiper('left'), 200)
     } else {
       // 结束了
-      var num = this.data.answers.success;
-      if (num > 11) {
-        wx.showModal({
-          showCancel: false,//是否显示取消按钮
-          title: '这是最后一题了',
-          content: '恭喜你通过了测验！\n你答对了' + num + '道题',
-          success: function (res) {
-            if (res.confirm) {
-              wx.redirectTo({
-                url: '../../../pages/index/index'
-              })
-            }
-          }
-        })
-      } else {
-        var text;
-        if (bool) text = "按确定返回主页"
-        else text = '正确答案为' + correct
-        wx.showModal({
-          title: '这是最后一题了',
-          showCancel: false,//是否显示取消按钮
-          content: text,
-          success: function (res) {
-            if (res.confirm) {
-              //console.log('用户点击确定')
-              wx.redirectTo({
-                url: '../../../pages/index/index'
-              })
-            }
-          }
-        })
-      }
+      suct = wx.setStorageSync('suct', suct)
+      wro = wx.setStorageSync("wro",wro)
+      wx.navigateTo({
+        url: '../result/result.',
+      })
+        
     }
   },
 
