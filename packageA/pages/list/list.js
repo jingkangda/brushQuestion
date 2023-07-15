@@ -7,7 +7,7 @@ Page({
    */
   data: {
     "imgUrl": './photos/',
-    "saveDir" : `${wx.env.USER_DATA_PATH}/my-directory`,
+    "saveDir": `${wx.env.USER_DATA_PATH}/my-directory`,
 
     "imagePaths": [],
   },
@@ -22,7 +22,7 @@ Page({
       dirPath: this.data.saveDir,
       success: function (res) {
         that.setData({
-          imagePaths: res.files.map(i => this.dirPath +'/'+ i)
+          imagePaths: res.files.map(i => `${wx.env.USER_DATA_PATH}/my-directory/` + i)
         });
         console.log(res.files);
       },
@@ -80,10 +80,9 @@ Page({
   onPullDownRefresh() {
     wx.navigateTo({
       url: './list.wxml',
-      success: function (res) {
-      },
-      fail: function (res) { },
-      complete: function (res) { },
+      success: function (res) {},
+      fail: function (res) {},
+      complete: function (res) {},
     })
   },
 
