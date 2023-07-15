@@ -3,6 +3,8 @@
     <view class="note-list">
       <view class="note-list-info" index="{{index}}">
         <image class="note-list-photo" bindtap='clickImg' src="{{item}}" id="{{index}}" />
+        <button class="delete-button" data-index="{{index}}" bindtap="deletePhoto">删除</button>
+
       </view>
     </view>
   </block>
